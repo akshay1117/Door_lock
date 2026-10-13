@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "author": "Smart Access Control System",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-stm32-bluepill", "id": "bluepill", "top": 70, "left": 0, "attrs": {} },
+    { "type": "board-mfrc522", "id": "rfid1", "top": -130, "left": 340, "attrs": {} },
+    { "type": "wokwi-lcd1602", "id": "lcd1", "top": -130, "left": 590, "attrs": { "pins": "i2c" } },
+    { "type": "wokwi-membrane-keypad", "id": "keypad1", "top": 180, "left": 340, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo1", "top": 230, "left": 600, "attrs": {} },
+    { "type": "wokwi-buzzer", "id": "buzzer1", "top": 375, "left": 570, "attrs": { "volume": "0.5" } },
+    { "type": "wokwi-led", "id": "ledRed", "top": 395, "left": 140, "attrs": { "color": "red" } },
+    { "type": "wokwi-resistor", "id": "resRed", "top": 430, "left": 95, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "ledGreen", "top": 395, "left": 250, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "resGreen", "top": 430, "left": 205, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    [ "bluepill:A10", "$serialMonitor:TX", "green", [] ],
+    [ "bluepill:A9", "$serialMonitor:RX", "green", [] ],
+
+    [ "bluepill:A4", "rfid1:SDA", "green", [] ],
+    [ "bluepill:A5", "rfid1:SCK", "green", [] ],
+    [ "bluepill:A6", "rfid1:MISO", "green", [] ],
+    [ "bluepill:A7", "rfid1:MOSI", "green", [] ],
+    [ "bluepill:B1", "rfid1:RST", "green", [] ],
+    [ "bluepill:3V3.1", "rfid1:3.3V", "red", [] ],
+    [ "bluepill:GND.1", "rfid1:GND", "black", [] ],
+
+    [ "bluepill:B7", "lcd1:SDA", "green", [] ],
+    [ "bluepill:B6", "lcd1:SCL", "green", [] ],
+    [ "bluepill:5V.1", "lcd1:VCC", "red", [] ],
+    [ "bluepill:GND.1", "lcd1:GND", "black", [] ],
+
+    [ "bluepill:B12", "keypad1:R1", "orange", [] ],
+    [ "bluepill:B13", "keypad1:R2", "orange", [] ],
+    [ "bluepill:B14", "keypad1:R3", "orange", [] ],
+    [ "bluepill:B15", "keypad1:R4", "orange", [] ],
+    [ "bluepill:B8", "keypad1:C1", "blue", [] ],
+    [ "bluepill:B9", "keypad1:C2", "blue", [] ],
+    [ "bluepill:B10", "keypad1:C3", "blue", [] ],
+    [ "bluepill:B11", "keypad1:C4", "blue", [] ],
+
+    [ "bluepill:A8", "servo1:PWM", "green", [] ],
+    [ "bluepill:5V.1", "servo1:V+", "red", [] ],
+    [ "bluepill:GND.1", "servo1:GND", "black", [] ],
+
+    [ "bluepill:B0", "buzzer1:2", "green", [] ],
+    [ "bluepill:GND.1", "buzzer1:1", "black", [] ],
+
+    [ "bluepill:A0", "resRed:1", "red", [] ],
+    [ "resRed:2", "ledRed:A", "red", [] ],
+    [ "ledRed:C", "bluepill:GND.1", "black", [] ],
+    [ "bluepill:A1", "resGreen:1", "green", [] ],
+    [ "resGreen:2", "ledGreen:A", "green", [] ],
+    [ "ledGreen:C", "bluepill:GND.1", "black", [] ]
+  ],
+  "serialMonitor": { "display": "always", "newline": "lf" },
+  "dependencies": {}
+}
